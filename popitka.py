@@ -15,23 +15,23 @@ current_datetime_minus_1_day = (current_datetime).strftime('%Y-%m-%d')
 current_datetime_m = current_datetime.replace(day=1).strftime('%Y-%m-%d')
 
 # Чтение токенов из файла
-with open("G:/.shortcut-targets-by-id/1-0y0YvUdxNOM5ZnhM4sE0iJVter1OKIh/тест/AF/Oth/kereas/tokens.json", "r", encoding="utf-8") as f:
+with open("/AF/Oth/kereas/tokens.json", "r", encoding="utf-8") as f:
     json_data = json.load(f)
 
 tokens_df = pd.DataFrame(list(json_data.items()), columns=['Token_name', 'Token_value'])
 
 WA = tokens_df.loc[tokens_df['Token_name'] == 'Token_api_P', 'Token_value'].iloc[0]
 IB = tokens_df.loc[tokens_df['Token_name'] == 'Token_api_IB', 'Token_value'].iloc[0]
-DB = tokens_df.loc[tokens_df['Token_name'] == 'Token_api_HRN', 'Token_value'].iloc[0]
-AP = tokens_df.loc[tokens_df['Token_name'] == 'Token_api_ADPRO', 'Token_value'].iloc[0]
-MO = tokens_df.loc[tokens_df['Token_name'] == 'Token_api_WAKEROCK', 'Token_value'].iloc[0]
+DB = tokens_df.loc[tokens_df['Token_name'] == 'Token_api_HR', 'Token_value'].iloc[0]
+AP = tokens_df.loc[tokens_df['Token_name'] == 'Token_api_AD', 'Token_value'].iloc[0]
+MO = tokens_df.loc[tokens_df['Token_name'] == 'Token_api_WA', 'Token_value'].iloc[0]
 DA = tokens_df.loc[tokens_df['Token_name'] == 'Token_api_DA', 'Token_value'].iloc[0]
 
 tokens = [WA, IB, DB, AP, MO, DA]
 
 # Чтение файла с Апп айди и ивент неймами
-apps_df = pd.read_excel("G:/.shortcut-targets-by-id/1-0y0YvUdxNOM5ZnhM4sE0iJVter1OKIh/тест/ИнАпп/sql/state_data/apps.xlsx", sheet_name='UA')
-apps_df_r = pd.read_excel("G:/.shortcut-targets-by-id/1-0y0YvUdxNOM5ZnhM4sE0iJVter1OKIh/тест/ИнАпп/sql/state_data/apps.xlsx", sheet_name='retarget')
+apps_df = pd.read_excel("/state_data/apps.xlsx", sheet_name='UA')
+apps_df_r = pd.read_excel("/state_data/apps.xlsx", sheet_name='retarget')
 # Универсальная функция для выгрузки данных
 def download_app_data(app_id, event_name, type_data, type_data_, token, token_variable_name, date_from, date_to):
     """Функция для скачивания данных для одного приложения."""
@@ -139,7 +139,7 @@ def process_all_apps(tokens, apps_df, type_data, type_data_, date_from, date_to,
         
         if not os.path.exists(os.path.dirname(output_file)):
             os.makedirs(os.path.dirname(output_file))
-        combined_data.to_csv(f"G:/.shortcut-targets-by-id/1-0y0YvUdxNOM5ZnhM4sE0iJVter1OKIh/тест/ИнАпп/sql/state_data/{output_file}", index=False, encoding='utf-8')
+        combined_data.to_csv(f"/state_data/{output_file}", index=False, encoding='utf-8')
         print(f"Все данные успешно сохранены в {output_file}.")
     else:
         print("Нет данных для сохранения.")
@@ -243,7 +243,7 @@ process_all_apps(tokens, apps_df, type_data, type_data_, date_from, date_to, out
         
 #         if not os.path.exists(os.path.dirname(output_file)):
 #             os.makedirs(os.path.dirname(output_file))
-#         combined_data.to_csv(f"G:/.shortcut-targets-by-id/1-0y0YvUdxNOM5ZnhM4sE0iJVter1OKIh/тест/ИнАпп/sql/state_data/{output_file}", index=False, encoding='utf-8')
+#         combined_data.to_csv(f"/state_data/{output_file}", index=False, encoding='utf-8')
 #         print(f"Все данные успешно сохранены в {output_file}.")
 #     else:
 #         print("Нет данных для сохранения.")
